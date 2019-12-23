@@ -32,7 +32,6 @@ data aws_ssm_parameter amzn2_ami {
   name = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
 }
 
-# https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-connect-set-up.html#ec2-instance-connect-setup-security-group
 resource "aws_security_group" "bastion" {
   vpc_id      = var.vpc_id
   name_prefix = "bastion"
@@ -45,6 +44,8 @@ resource "aws_security_group" "bastion" {
     cidr_blocks = var.cidr_blocks
   }
 
+  # 公式ドキュメントの推奨に従いAWSコンソールから接続できるようにしておく
+  # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-connect-set-up.html#ec2-instance-connect-setup-security-group
   ingress {
     from_port   = 22
     to_port     = 22
