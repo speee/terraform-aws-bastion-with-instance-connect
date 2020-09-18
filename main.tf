@@ -18,6 +18,10 @@ resource "aws_instance" "bastion" {
     var.additional_vpc_security_group_ids,
   )
 
+  lifecycle {
+    ignore_changes = [ami]
+  }
+
   # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-connect-set-up.html#ec2-instance-connect-install
   user_data = <<EOF
 #!/bin/bash
